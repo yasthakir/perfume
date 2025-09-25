@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Her - Aurora Perfumes</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#e09ca7; /* changed for her */
+  --secondary:#f5d1d9;
+  --bg:#fff5f7;
+  --muted:#7b6f6a;
+  --accent-glow: rgba(224,156,167,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:#222;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+.container{max-width:1300px;margin:0 auto;padding:20px;}
+
+/* Header */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+  transform:translateY(-40px);
+  opacity:0;
+  animation:slideDown 1s ease forwards .3s;
+}
+header .logo {
+  font-family:'Playfair Display';
+  font-weight:700;
+  font-size:28px;
+  color:white;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  padding:12px;
+  border-radius:14px;
+  box-shadow:0 8px 22px rgba(0,0,0,0.1);
+}
+nav a { margin:0 12px; font-weight:500; color:var(--muted); position:relative; }
+nav a::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:2px; background:var(--primary); transition:0.3s; }
+nav a:hover::after { width:100%; }
+.icon-btn { background:rgba(255,255,255,0.2); border:none; padding:6px 10px; border-radius:12px; cursor:pointer; transition:.3s; font-size:18px; }
+.icon-btn:hover { transform:scale(1.2); background:rgba(255,255,255,0.35); }
+#hamburger{display:none;}
+@media(max-width:768px){ nav{display:none;flex-direction:column;position:absolute;top:72px;right:30px;background:rgba(255,255,255,0.35);backdrop-filter:blur(12px);padding:16px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.12);} nav.show{display:flex;} #hamburger{display:block;} }
+
+/* Search Bar */
+.search-bar { display:flex; justify-content:center; margin:15px auto 25px auto; max-width:800px; padding:8px; border-radius:30px; background:white; box-shadow:0 4px 20px rgba(0,0,0,0.08); transform:translateY(-20px); opacity:0; animation:fadeDown 1s ease forwards; }
+.search-bar input { flex:1; border:none; outline:none; padding:12px 16px; font-size:15px; border-radius:30px; }
+.search-bar button { background:linear-gradient(135deg,var(--primary),var(--secondary)); border:none; color:white; padding:0 20px; border-radius:30px; font-weight:600; cursor:pointer; transition:.3s; }
+.search-bar button:hover { transform:scale(1.05); }
+.back-btn { background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; font-size:18px; font-weight:bold; padding:8px 14px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px var(--accent-glow); }
+.back-btn:hover { transform:scale(1.1); box-shadow:0 6px 16px var(--accent-glow); }
+
+/* Hero Section */
+.hero { position:relative; text-align:center; padding:100px 20px 80px 20px; background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; border-radius:20px; overflow:hidden; }
+.hero h1 { font-family:'Playfair Display'; font-size:clamp(2rem,5vw,3rem); margin-bottom:15px; animation:fadeDown 1s ease forwards; }
+.hero p { font-size:16px; opacity:0.9; animation:fadeDown 1.2s ease forwards; }
+.sparkles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.sparkle { position:absolute; width:6px; height:6px; border-radius:50%; background:white; opacity:.7; animation:floatSparkle 6s infinite ease-in-out alternate; }
+.sparkle:nth-child(1){top:20%;left:15%;animation-delay:0s;}
+.sparkle:nth-child(2){top:40%;left:70%;animation-delay:2s;}
+.sparkle:nth-child(3){top:65%;left:30%;animation-delay:4s;}
+.sparkle:nth-child(4){top:80%;left:80%;animation-delay:1s;}
+@keyframes floatSparkle { 0% { transform:translateY(0) scale(1); opacity:.7; } 50% { transform:translateY(-20px) scale(1.2); opacity:1; } 100% { transform:translateY(0) scale(1); opacity:.6; } }
+
+@media(max-width:768px){ .hero { padding:60px 20px; } .hero h1 { font-size:clamp(1.5rem,5vw,2rem); } .hero p { font-size:14px; } }
+
+/* Filter Section */
+.filter-section { display:flex; flex-wrap:wrap; gap:12px; padding:20px 0; justify-content:flex-start; align-items:center; }
+.filter-section select, .filter-section button { padding:10px 14px; border-radius:10px; border:none; cursor:pointer; transition:0.3s; }
+.filter-section select { background:#f5f5f5; }
+.filter-section button { background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; font-weight:600; box-shadow:0 6px 20px var(--accent-glow); }
+.filter-section button:hover { transform:scale(1.05); }
+
+/* Products Grid */
+.products-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:24px; padding:20px 0; }
+.product-card { background:white; border-radius:18px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,0.06); text-align:center; cursor:pointer; transform:translateY(40px) scale(0.95); opacity:0; animation:fadeUp 0.8s forwards, floatCard 6s ease-in-out infinite; }
+.product-card img { width:100%; height:220px; object-fit:cover; transition:transform 0.5s ease; }
+.product-card:hover img { transform:scale(1.1); }
+.product-card:hover { transform:translateY(-10px) scale(1.05); box-shadow:0 20px 40px rgba(0,0,0,0.15); }
+.product-card h4 { margin:12px 0; font-weight:600; }
+.product-card .price { color:#333; font-weight:700; margin-bottom:12px; }
+.add-cart { padding:10px 16px; border:none; border-radius:12px; background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; font-weight:600; cursor:pointer; transition:.3s; box-shadow:0 6px 20px var(--accent-glow); }
+.add-cart:hover { transform:scale(1.05); box-shadow:0 12px 25px var(--accent-glow); }
+
+/* Animations */
+@keyframes fadeUp { to{opacity:1;transform:translateY(0) scale(1);} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-30px);} to{opacity:1;transform:translateY(0);} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-40px);} to{opacity:1;transform:translateY(0);} }
+@keyframes floatCard { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+@media(max-width:1200px){.products-grid{grid-template-columns:repeat(4,1fr);} }
+@media(max-width:768px){.products-grid{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:480px){.products-grid{grid-template-columns:repeat(2,1fr);} }
+
+/* Footer same as For Him page */
+footer{margin-top:28px;padding:24px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <div class="logo">A</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#products">For Her</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="hamburger">☰</button>
+    <div class="actions">
+      <button class="icon-btn">♡</button>
+      <button class="icon-btn">🛒</button>
+      <button class="icon-btn">👤</button>
+    </div>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <a href="index.html" class="back-btn">←</a>
+    <input type="text" placeholder="Search for perfumes...">
+    <button class="search-btn">Search</button>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Fragrances For Her</h1>
+    <p>Elegant, enchanting, and mesmerizing scents designed for modern women.</p>
+    <div class="sparkles">
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+      <div class="sparkle"></div>
+    </div>
+  </section>
+
+  <!-- Filter Section -->
+  <section class="filter-section">
+    <select>
+      <option>Category</option>
+      <option>Perfume</option>
+      <option>Body Mist</option>
+      <option>Gift Sets</option>
+    </select>
+    <select>
+      <option>Sort By</option>
+      <option>Popularity</option>
+      <option>Newest</option>
+      <option>Price: Low to High</option>
+      <option>Price: High to Low</option>
+    </select>
+    <button>Apply Filters</button>
+  </section>
+
+  <!-- Product Grid -->
+  <section class="products-grid" id="productsGrid">
+    <!-- Products inserted by JS -->
+  </section>
+
+</div>
+
+<script>
+
+const hamburger=document.getElementById('hamburger');
+const nav=document.querySelector('header nav');
+hamburger.addEventListener('click',()=>nav.classList.toggle('show'));
+
+// List of products
+const products = [
+  {
+    id: "mystic-oud",
+    name: "Mystic Oud",
+    price: "$65",
+    image: "images/perfume2.png",
+    desc: "A captivating fragrance with rich oud and spicy notes."
+  },
+  {
+    id: "amber-dusk",
+    name: "Amber Dusk",
+    price: "$59",
+    image: "images/sample1.png",
+    desc: "Warm amber scent with a dusk-inspired mood."
+  },
+  {
+    id: "jasmine",
+    name: "jasmine",
+    price: "$72",
+    image: "images/sample2.png",
+    desc: "Romantic rose blended with veil of freshness."
+  },
+  {
+    id: "golden-hour",
+    name: "Golden Hour",
+    price: "$80",
+    image: "images/sample3.png",
+    desc: "Golden, radiant fragrance for bright personalities."
+  }
+];
+
+const productsGrid = document.getElementById("productsGrid");
+
+// Dynamically create product cards
+products.forEach(product => {
+  const card = document.createElement("div");
+  card.classList.add("product-card");
+
+  // When user clicks anywhere on the card (except button), open product view
+  card.addEventListener("click", () => openProduct(product.id));
+
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}">
+    <h4>${product.name}</h4>
+    <p class="price">${product.price}</p>
+    <button class="add-cart">Add to Cart</button>
+  `;
+
+  // Add to Cart button functionality
+  const btn = card.querySelector(".add-cart");
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevent opening product page
+    addToCart(product);
+  });
+
+  productsGrid.appendChild(card);
+});
+
+// Open product view (store only id)
+function openProduct(productId) {
+  localStorage.setItem("productId", productId);
+  window.location.href = "product.html"; // your product view page
+}
+
+// Add product to cart
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html"; // your cart page
+}
+</script>
+</body>
+</html>

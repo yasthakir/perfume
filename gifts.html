@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift - Aurora Perfumes</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary:#f0a500;
+  --secondary:#ffd60a;
+  --bg:#fff8e1;
+  --muted:#7b6f6a;
+  --accent-glow: rgba(240,165,0,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:#222;overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+.container{max-width:1300px;margin:0 auto;padding:20px;}
+
+/* Header */
+header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:15px 30px; background:rgba(255,255,255,0.3);
+  backdrop-filter:blur(10px); border-radius:16px; position:sticky; top:0; z-index:1000;
+  transform:translateY(-40px); opacity:0; animation:slideDown 1s ease forwards .3s;
+}
+header .logo {
+  font-family:'Playfair Display'; font-weight:700; font-size:28px;
+  color:white; background:linear-gradient(135deg,var(--primary),var(--secondary));
+  padding:12px; border-radius:14px; box-shadow:0 8px 22px rgba(0,0,0,0.1);
+}
+nav a { margin:0 12px; font-weight:500; color:var(--muted); position:relative;}
+nav a::after { content:''; position:absolute; left:0; bottom:-3px; width:0; height:2px; background:var(--primary); transition:0.3s; }
+nav a:hover::after { width:100%; }
+.icon-btn { background:rgba(255,255,255,0.2); border:none; padding:6px 10px; border-radius:12px; cursor:pointer; transition:.3s; font-size:18px; }
+.icon-btn:hover { transform:scale(1.2); background:rgba(255,255,255,0.35); }
+#hamburger{display:none;}
+@media(max-width:768px){
+  nav{display:none;flex-direction:column;position:absolute;top:72px;right:30px;background:rgba(255,255,255,0.35);backdrop-filter:blur(12px);padding:16px;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.12);}
+  nav.show{display:flex;}
+  #hamburger{display:block;}
+}
+
+/* Search Bar */
+.search-bar { display:flex; justify-content:center; margin:15px auto 25px auto; max-width:800px; padding:8px; border-radius:30px; background:white; box-shadow:0 4px 20px rgba(0,0,0,0.08); transform:translateY(-20px); opacity:0; animation:fadeDown 1s ease forwards; }
+.search-bar input { flex:1; border:none; outline:none; padding:12px 16px; font-size:15px; border-radius:30px; }
+.search-bar button { background:linear-gradient(135deg,var(--primary),var(--secondary)); border:none; color:white; padding:0 20px; border-radius:30px; font-weight:600; cursor:pointer; transition:.3s; }
+.search-bar button:hover { transform:scale(1.05); }
+.back-btn { background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; font-size:18px; font-weight:bold; padding:8px 14px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px var(--accent-glow); }
+.back-btn:hover { transform:scale(1.1); box-shadow:0 6px 16px var(--accent-glow); }
+
+/* Hero */
+.hero { position:relative; text-align:center; padding:100px 20px 80px 20px; background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; border-radius:20px; overflow:hidden; }
+.hero h1 { font-family:'Playfair Display'; font-size:clamp(2rem,5vw,3rem); margin-bottom:15px; animation:fadeDown 1s ease forwards; }
+.hero p { font-size:16px; opacity:0.9; animation:fadeDown 1.2s ease forwards; }
+/* Sparkles */
+.sparkles { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.sparkle { position:absolute; width:6px; height:6px; border-radius:50%; background:white; opacity:.7; animation:floatSparkle 6s infinite ease-in-out alternate; }
+.sparkle:nth-child(1){top:20%;left:15%;animation-delay:0s;}
+.sparkle:nth-child(2){top:40%;left:70%;animation-delay:2s;}
+.sparkle:nth-child(3){top:65%;left:30%;animation-delay:4s;}
+.sparkle:nth-child(4){top:80%;left:80%;animation-delay:1s;}
+@keyframes floatSparkle { 0% { transform:translateY(0) scale(1); opacity:.7; } 50% { transform:translateY(-20px) scale(1.2); opacity:1; } 100% { transform:translateY(0) scale(1); opacity:.6; } }
+@media(max-width:768px){ .hero { padding:60px 20px; } .hero h1 { font-size:clamp(1.5rem,5vw,2rem); } .hero p { font-size:14px; } }
+
+/* Filter Section */
+.filter-section { display:flex; flex-wrap:wrap; gap:12px; padding:20px 0; justify-content:flex-start; align-items:center; }
+.filter-section select, .filter-section button { padding:10px 14px; border-radius:10px; border:none; cursor:pointer; transition:0.3s; }
+.filter-section select { background:#f5f5f5; }
+.filter-section button { background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; font-weight:600; box-shadow:0 6px 20px var(--accent-glow); }
+.filter-section button:hover { transform:scale(1.05); }
+
+/* Products Grid */
+.products-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:24px; padding:20px 0; }
+.product-card { background:white; border-radius:18px; overflow:hidden; box-shadow:0 10px 20px rgba(0,0,0,0.06); text-align:center; cursor:pointer; transform:translateY(40px) scale(0.95); opacity:0; animation:fadeUp 0.8s forwards, floatCard 6s ease-in-out infinite; }
+.product-card img { width:100%; height:220px; object-fit:cover; transition:transform 0.5s ease; }
+.product-card:hover img { transform:scale(1.1); }
+.product-card:hover { transform:translateY(-10px) scale(1.05); box-shadow:0 20px 40px rgba(0,0,0,0.15); }
+.product-card h4 { margin:12px 0; font-weight:600; }
+.product-card .price { color:#333; font-weight:700; margin-bottom:12px; }
+.add-cart { padding:10px 16px; border:none; border-radius:12px; background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; font-weight:600; cursor:pointer; transition:.3s; box-shadow:0 6px 20px var(--accent-glow); }
+.add-cart:hover { transform:scale(1.05); box-shadow:0 12px 25px var(--accent-glow); }
+
+@keyframes fadeUp { to{opacity:1;transform:translateY(0) scale(1);} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-30px);} to{opacity:1;transform:translateY(0);} }
+@keyframes slideDown { from{opacity:0;transform:translateY(-40px);} to{opacity:1;transform:translateY(0);} }
+@keyframes floatCard { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+
+@media(max-width:1200px){.products-grid{grid-template-columns:repeat(3,1fr);} }
+@media(max-width:768px){.products-grid{grid-template-columns:repeat(2,1fr);} }
+@media(max-width:480px){.products-grid{grid-template-columns:repeat(2,1fr);} }
+
+/* Footer */
+.footer { background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,0.95)); padding: 60px 20px 30px 20px; color: #333; position: relative; overflow: hidden; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; animation: fadeUp 1s ease forwards; }
+.footer h4 { font-size: 18px; margin-bottom: 15px; font-family: 'Playfair Display', serif; }
+.footer p, .footer ul li { font-size: 14px; line-height: 1.6; color: #555; }
+.footer ul { list-style: none; padding: 0; }
+.footer ul li { margin-bottom: 10px; }
+.footer ul li a { color: #555; text-decoration: none; transition: all 0.3s ease; position: relative; }
+.footer ul li a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0%; height: 2px; background: var(--primary); transition: width 0.3s ease; }
+.footer ul li a:hover::after { width: 100%; } 
+.footer ul li a:hover { color: var(--primary); }
+.footer-brand .logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 32px; background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 12px; border-radius: 14px; display: inline-block; animation: floatWave 5s ease-in-out infinite; color: white; text-align: center; }
+.footer-socials { display: flex; gap: 12px; margin-top: 15px; }
+.footer-socials a { width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; background: var(--primary); color: white; border-radius: 50%; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.footer-socials a:hover { transform: translateY(-6px) scale(1.1); box-shadow: 0 8px 20px rgba(240,165,0,0.35); }
+.footer-bottom { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; font-size: 13px; color: var(--muted); animation: fadeUp 1s ease forwards; }
+@keyframes floatWave { 0%,100% { transform: translateY(0) translateX(0); } 25% { transform: translateY(-6px) translateX(4px); } 50% { transform: translateY(-10px) translateX(-6px); } 75% { transform: translateY(-6px) translateX(4px); } }
+@keyframes fadeUp { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+
+@media(max-width:640px){
+  .footer {
+    padding: 20px 10px;   /* reduce padding */
+    transform: scale(0.85);   /* shrink entire footer */
+    transform-origin: top center;  /* keep alignment */
+  }
+
+  .footer h4 {
+    font-size: 14px;  /* smaller headings */
+  }
+
+  .footer p, 
+  .footer ul li {
+    font-size: 12px;  /* smaller text */
+  }
+
+  .footer .logo {
+    font-size: 20px;   /* shrink logo */
+    padding: 6px 10px;
+  }
+
+  .footer-socials a {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+  }
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="logo">A</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="#gift">Gift</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button id="hamburger">☰</button>
+  <div class="actions">
+    <button class="icon-btn">♡</button>
+    <button class="icon-btn">🛒</button>
+    <button class="icon-btn">👤</button>
+  </div>
+</header>
+
+<div class="search-bar">
+  <a href="index.html" class="back-btn">←</a>
+  <input type="text" placeholder="Search for gift perfumes...">
+  <button class="search-btn">Search</button>
+</div>
+
+<section class="hero">
+  <h1>Gift Perfumes</h1>
+  <p>Beautifully packaged fragrances perfect for gifting occasions.</p>
+  <div class="sparkles">
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+  </div>
+</section>
+
+<section class="filter-section">
+  <select><option>Category</option><option>Luxury</option><option>Popular</option><option>Limited Edition</option></select>
+  <select><option>Sort By</option><option>Popularity</option><option>Newest</option><option>Price: Low to High</option><option>Price: High to Low</option></select>
+  <button>Apply Filters</button>
+</section>
+
+<!-- Product Grid -->
+   
+   
+  
+<section class="products-grid" id="productsGrid">
+  <!-- Products will be dynamically inserted here -->
+</section>
+
+<section class="reviews">
+  <h2 class="section-title">What Our Customers Say</h2>
+
+  <div class="review-grid">
+    <div class="review-card float1 fade-in">
+      <p>“The fragrance is just amazing! Long-lasting and feels so premium.”</p>
+      <div class="reviewer">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User">
+        <div>
+          <h4>Sarah M.</h4>
+          <span>Verified Buyer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card float2 fade-in delay1">
+      <p>“Best gift I bought for my wife. She loved the elegant bottle design.”</p>
+      <div class="reviewer">
+        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User">
+        <div>
+          <h4>James R.</h4>
+          <span>Loyal Customer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card float3 fade-in delay2">
+      <p>“Smells luxurious, lasts all day. Packaging is very classy too!”</p>
+      <div class="reviewer">
+        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User">
+        <div>
+          <h4>Amanda K.</h4>
+          <span>New Customer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-brand">
+      <div class="logo">A</div>
+      <p>Premium handcrafted fragrances inspired by nature and elegance. Perfect for gifting loved ones.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul><li><a href="#">Home</a></li><li><a href="#gift">Gift</a></li><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li></ul>
+    </div>
+    <div class="footer-categories">
+      <h4>Categories</h4>
+      <ul><li><a href="#him">For Him</a></li><li><a href="#her">For Her</a></li><li><a href="#gifts">Gift</a></li><li><a href="#signature">Signature</a></li><li><a href="#combo">Combo</a></li></ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>Email: support@auroraperfumes.com</p>
+      <p>Phone: +91 98765 43210</p>
+      <div class="footer-socials"><a href="#">🐦</a><a href="#">📘</a><a href="#">📸</a><a href="#">🎥</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2025 Aurora Perfumes. All rights reserved.</p><p>Designed with ❤️ by YourBrand</p></div>
+</footer>
+
+<script>
+const hamburger=document.getElementById('hamburger');
+const nav=document.querySelector('header nav');
+hamburger.addEventListener('click',()=>nav.classList.toggle('show'));
+
+// List of products
+const products = [
+  {
+    id: "mystic-oud",
+    name: "Mystic Oud",
+    price: "$65",
+    image: "images/perfume2.png",
+    desc: "A captivating fragrance with rich oud and spicy notes."
+  },
+  {
+    id: "amber-dusk",
+    name: "Amber Dusk",
+    price: "$59",
+    image: "images/sample1.png",
+    desc: "Warm amber scent with a dusk-inspired mood."
+  },
+  {
+    id: "rose-veil",
+    name: "Rose Veil",
+    price: "$72",
+    image: "images/sample2.png",
+    desc: "Romantic rose blended with veil of freshness."
+  },
+  {
+    id: "golden-hour",
+    name: "Golden Hour",
+    price: "$80",
+    image: "images/sample3.png",
+    desc: "Golden, radiant fragrance for bright personalities."
+  }
+];
+
+const productsGrid = document.getElementById("productsGrid");
+
+// Dynamically create product cards
+products.forEach(product => {
+  const card = document.createElement("div");
+  card.classList.add("product-card");
+
+  // When user clicks anywhere on the card (except button), open product view
+  card.addEventListener("click", () => openProduct(product.id));
+
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}">
+    <h4>${product.name}</h4>
+    <p class="price">${product.price}</p>
+    <button class="add-cart">Add to Cart</button>
+  `;
+
+  // Add to Cart button functionality
+  const btn = card.querySelector(".add-cart");
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevent opening product page
+    addToCart(product);
+  });
+
+  productsGrid.appendChild(card);
+});
+
+// Open product view (store only id)
+function openProduct(productId) {
+  localStorage.setItem("productId", productId);
+  window.location.href = "product.html"; // your product view page
+}
+
+// Add product to cart
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html"; // your cart page
+}
+</script>
+
+</body>
+</html>
