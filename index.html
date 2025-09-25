@@ -39,7 +39,7 @@ nav a:hover::after{width:100%;}
 .icon-btn{background:rgba(255,255,255,0.2);border:none;padding:6px 10px;border-radius:12px;cursor:pointer;transition:.3s;font-size:18px;}
 .icon-btn:hover{transform:scale(1.2);background:rgba(255,255,255,0.35);}
 #hamburger{display:none;font-size:26px;background:transparent;border:none;cursor:pointer;}
-@media(max-width:1025px){nav{display:none;flex-direction:column;gap:12px;position:absolute;top:72px;right:30px;background:var(--glass);padding:16px;border-radius:16px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.12);}
+@media(max-width:768px){nav{display:none;flex-direction:column;gap:12px;position:absolute;top:72px;right:30px;background:var(--glass);padding:16px;border-radius:16px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.12);}
 nav.show{display:flex;}#hamburger{display:block;}}
 /* Base (desktop) */
 header {
@@ -144,14 +144,14 @@ header {
 /* Hero */
 .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:30px;margin:30px 0;padding:30px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.4));position:relative;overflow:hidden;}
 .hero-left{z-index:2;}
-.hero-left .eyebrow{font-size:14px;color:var(--muted);margin-bottom:8px;}
-.hero-left .headline{font-family:'Playfair Display';font-size:52px;font-weight:700;line-height:1.1;display:flex;flex-wrap:wrap;gap:6px;}
+.hero-left .eyebrow{font-size:14px;color:var(--muted);margin-bottom:1px;}
+.hero-left .headline{font-family:'Playfair Display';font-size:clamp(2rem,5vw,3rem);font-weight:700;line-height:1.1;display:flex;flex-wrap:wrap;gap:6px;}
 .hero-left .headline span{display:inline-block;opacity:0;transform:translateY(30px);animation:fadeUp 0.9s forwards;}
 .hero-left .headline span:nth-child(1){animation-delay:.1s;}span:nth-child(2){animation-delay:.3s;}span:nth-child(3){animation-delay:.5s;}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
-.hero-left p{margin-top:18px;font-size:16px;color:#4a4037;line-height:1.5;}
+.hero-left p{margin-top:18px;font-size:16px;color:#311904;line-height:1.5;}
 .cta-buttons{display:flex;gap:18px;margin-top:20px;align-items:center;}
-.cta-buttons a{padding:10px 20px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;color:white;font-weight:600;transition:.3s;box-shadow:0 6px 20px var(--accent-glow);}
+.cta-buttons a{padding:10px 20px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;color:white;font-weight:600;transition:.3s;box-shadow:0 6px 20px var(--accent-glow);border: 1px solid rgb(255, 250, 250);}
 .cta-buttons a:hover{transform:scale(1.05);box-shadow:0 12px 25px var(--accent-glow);}
 .hero-right{position:relative;height:500px;}
 .bottle{position:absolute;transition:transform .5s ease;transform-origin:center;}
@@ -180,21 +180,28 @@ header {
 }
 
 /* Mobile: overlap bottles under text + button */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .hero {
-    display: block;
+   
     text-align: center;
-    padding: 40px 20px;
+    padding: 200px 20px;
+  padding-bottom: 150px;
+    background-color: #fdfbf7;
+    position: relative;
+    
   }
 
   .hero-right {
     position: absolute;
-    top: 50%; left: 40%;
+    top: 20%; left: 25%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 400px;
+    width: 90%;
+    max-width: 500px;
     opacity: 0.8; /* bottle slightly faded so text is readable */
     z-index: 1;
+  }
+  .hero-left .eyebrow{
+    display: none;
   }
 
   .hero-right img {
@@ -203,15 +210,24 @@ header {
   }
 
   .hero-left {
+    display: block;
     position: relative;
+    top: 30%;
+    
     z-index: 2; /* keep text + buttons above image */
+   
+    
   }
+  
 
   .hero-left .headline {
+    
+    padding-top: 120px;
     text-align: center;
     align-content: center;
-    color: #020202;
-   font-size: 60px;
+    color: #4a4037;
+   
+  
   }
 
   .hero-left p {
@@ -226,51 +242,693 @@ header {
 }
 
 
-/* Categories */
-.categories{display:flex;gap:20px;flex-wrap:wrap;margin:50px 0;}
-.category{flex:1 1 220px;height:180px;border-radius:22px;background-size:cover;background-position:center;position:relative;cursor:pointer;overflow:hidden;transition:transform .5s ease, box-shadow .5s ease, opacity .8s;opacity:0;}
-.category::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.25);transition:background .4s;}
-.category:hover::before{background:rgba(0,0,0,0.15);}
-.category .title{position:absolute;bottom:16px;left:16px;font-family:'Playfair Display';font-weight:700;font-size:20px;color:white;text-shadow:0 2px 8px rgba(0,0,0,0.6);transition:transform .5s;}
-.category:hover{transform:translateY(-8px) scale(1.05);box-shadow:0 20px 40px rgba(0,0,0,0.12);}
-.category:hover .title{transform:translateY(-4px);}
-.category.visible{opacity:1;transform:translateY(0);transition:opacity 1s ease, transform 1s ease;}
-@media(max-width:980px){.categories{flex-wrap:wrap;}.category{flex:1 1 45%;margin-bottom:20px;}} 
-@media(max-width:640px){.category{flex:1 1 100%;height:150px;}.category .title{font-size:18px;}}
 
-/* Top Collection */
-.top-collection{margin-top:60px;position:relative;padding-bottom:12px}
-.collection-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.collection-header h2{font-size:24px;font-weight:700;margin:0}
-.collection-header .more-btn{color:var(--primary);font-weight:600;transition:.3s;}
-.collection-header .more-btn:hover{color:var(--secondary);}
-.scroll-container{overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;}
+/* Category Section */
+.categories {
+  padding: 60px 20px;
+  background: #fafafa;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 32px;
+  margin-bottom: 40px;
+  font-family: 'Playfair Display', serif;
+  color: #222;
+  animation: fadeDown 1s ease;
+}
+
+/* Grid */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+/* Category Card */
+.category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  display: block;
+  text-decoration: none;
+  color: white;
+  transform: translateY(40px) scale(0.95);
+  opacity: 0;
+
+  /* Fade in on scroll + float idle continuously */
+  animation: fadeUp 0.8s ease forwards, floatIdle 6s ease-in-out infinite;
+}
+
+.category-card:nth-child(1) { animation-delay: 0.2s, 0s; }
+.category-card:nth-child(2) { animation-delay: 0.4s, 0s; }
+.category-card:nth-child(3) { animation-delay: 0.6s, 0s; }
+.category-card:nth-child(4) { animation-delay: 0.8s, 0s; }
+
+.category-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+/* Hover Animations */
+.category-card:hover img {
+  transform: scale(1.12) rotate(-2deg);
+}
+
+.category-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  transition: transform 0.4s ease;
+}
+
+/* Overlay */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1));
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.overlay h3 {
+  font-size: 22px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+
+.category-card:hover .overlay h3 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Floating effect for idle animation */
+@keyframes floatIdle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-card img {
+    height: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-card img {
+    height: 200px;
+  }
+}
+
+
+
+/* Responsive */
+@media (max-width: 900px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .category-card img {
+    height: 220px;
+  }
+}
+/* Top Collection Section */
+.top-collection{
+  padding:60px 20px;
+  background:#fafafa;
+  position:relative;
+}
+
+.collection-header{
+display:flex;
+  flex-direction:column; /* stack text on small screens */
+  justify-content:center;
+  align-items:center;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.collection-header h2{
+  font-size:28px; /* default desktop size */
+  font-family:'Playfair Display', serif;
+  animation:fadeDown 1s ease forwards;
+  margin:0;
+}
+
+.collection-header .more-btn{
+  color:#caa97a;
+  text-decoration:none;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.collection-header .more-btn:hover{
+  color:#e6d2b2;
+  transform:scale(1.05);
+}
+
+/* Scroll Container */
+.scroll-container{
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:10px;
+}
+
 .scroll-container::-webkit-scrollbar{display:none;}
-.scroll-track{display:flex;gap:18px;}
-.product-card{flex:0 0 auto;width:180px;border-radius:18px;background:var(--card);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform .3s ease, box-shadow .3s ease, opacity .5s ease;opacity:0;animation:fadeIn 0.8s forwards;}
-.product-card:nth-child(1){animation-delay:0.1s}.product-card:nth-child(2){animation-delay:0.25s}.product-card:nth-child(3){animation-delay:0.4s}.product-card:nth-child(4){animation-delay:0.55s}.product-card:nth-child(5){animation-delay:0.7s;}
-@keyframes fadeIn{to{opacity:1}}
-.product-card:hover{transform:scale(1.08) translateY(-6px);box-shadow:0 12px 28px rgba(20,20,20,0.12);}
-.product-card img{width:100%;height:200px;object-fit:cover;border-radius:14px;margin-bottom:10px;transition:transform .3s ease;}
-.product-card:hover img{transform:scale(1.08) rotate(-2deg);}
-.card-title{font-weight:600;color:#2a2a2a;text-align:center;font-size:14px;}
-@media(max-width:980px){.product-card{width:150px}}@media(max-width:640px){.product-card{width:130px;height:auto}}
 
-/* Product Grid */
-.products{margin-top:26px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--shadow);overflow:hidden;position:relative;transform-style:preserve-3d;transition:transform .28s cubic-bezier(.2,.9,.3,1);}
-.card:hover{transform:translateY(-10px) rotateX(2deg)}
-.thumb{height:200px;border-radius:12px;background:linear-gradient(180deg,#fff,#f6f2ef);display:flex;align-items:center;justify-content:center;margin-bottom:12px;position:relative;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.2,.9,.3,1);}
-.card:hover .thumb img{transform:scale(1.08) rotate(-2deg)}
-.badge{position:absolute;left:12px;top:12px;background:linear-gradient(90deg,var(--primary),var(--secondary));padding:6px 10px;border-radius:999px;color:white;font-weight:600;font-size:13px;box-shadow:0 6px 18px rgba(202,169,122,0.12)}
-.prod-title{font-weight:600;margin:4px 0}
-.prod-desc{color:var(--muted);font-size:14px;margin-bottom:10px}
-.price-row{display:flex;justify-content:space-between;align-items:center}
-.price{font-weight:700;font-size:18px;color:#2a2a2a}
-.add{padding:8px 12px;border-radius:10px;border:1px solid rgba(40,30,20,0.06);background:linear-gradient(180deg,rgba(250,246,240,0.95),white);cursor:pointer}
+.scroll-track{
+  display:flex;
+  gap:24px;
+}
+
+/* Product Cards */
+.product-card{
+  flex:0 0 auto;
+  width:200px;
+  background:white;
+  border-radius:18px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  cursor:pointer;
+  overflow:hidden;
+  transform:translateY(40px) scale(0.95);
+  opacity:0;
+  animation:fadeUp 0.8s forwards, floatCard 6s ease-in-out infinite;
+}
+
+.product-card:nth-child(1){animation-delay:0.2s;}
+.product-card:nth-child(2){animation-delay:0.4s;}
+.product-card:nth-child(3){animation-delay:0.6s;}
+.product-card:nth-child(4){animation-delay:0.8s;}
+.product-card:nth-child(5){animation-delay:1s;}
+
+/* Floating Animation */
+@keyframes floatCard{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+/* Fade Up */
+@keyframes fadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Card Hover */
+.product-card:hover{
+  transform:translateY(-10px) scale(1.05) rotate(-1deg);
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+  transition:transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.product-card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:14px;
+  transition:transform 0.7s ease;
+}
+
+.product-card:hover img{
+  transform:scale(1.1) rotate(-2deg);
+}
+
+/* Card Title */
+.card-title{
+  text-align:center;
+  font-weight:600;
+  padding:12px 0 8px 0;
+  font-size:16px;
+}
+
+/* Add to Cart Button */
+.add-cart{
+  padding:8px 16px;
+  margin-bottom:12px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,#caa97a,#e6d2b2);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  box-shadow:0 6px 20px rgba(202,169,122,0.3);
+}
+
+.add-cart:hover{
+  transform:scale(1.05) rotate(-1deg);
+  box-shadow:0 12px 25px rgba(202,169,122,0.45);
+}
+
+/* Sparkles */
+.sparkles{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.sparkle{
+  position:absolute;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:white;
+  opacity:0.8;
+  filter:drop-shadow(0 0 6px rgba(255,255,255,.7));
+  animation:sparkleAnim 2s ease-in-out infinite alternate;
+}
+
+@keyframes sparkleAnim{
+  0%{opacity:0.2; transform:translateY(0) scale(1);}
+  100%{opacity:1; transform:translateY(-6px) scale(1.2);}
+}
+
+/* Responsive */
+@media(max-width:980px){
+  .product-card{width:180px;}
+}
+
+@media(max-width:640px){
+  .product-card{width:140px;}
+  .scroll-track{gap:16px;}
+  .scroll-container{padding-bottom:12px;}
+}
+@media(max-width:980px){
+  .collection-header h2{
+    font-size:24px;
+  }
+}
+
+@media(max-width:640px){
+  .collection-header h2{
+    font-size:20px;
+  }
+}
+  /* Filter Section */
+    .filter-section {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      padding:15px 20px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.05);
+      margin-bottom:30px;
+    }
+    .filter-group {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      white-space:nowrap;
+    }
+    .filter-group label {
+      font-weight:600;
+      font-size:14px;
+      color:var(--muted);
+    }
+    .filter-group select {
+      padding:8px 12px;
+      border-radius:8px;
+      border:1px solid #ddd;
+      background:#fff;
+      cursor:pointer;
+      font-weight:500;
+      transition:.3s;
+    }
+    .filter-group select:focus {
+      border-color:var(--primary);
+      box-shadow:0 0 8px rgba(202,169,122,0.3);
+      outline:none;
+    }
+
+    /* Product Grid */
+    .products-grid {
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:20px;
+    }
+    .product-card {
+      background:#fff;
+      border-radius:16px;
+      padding:15px;
+      text-align:center;
+      box-shadow:0 6px 20px rgba(0,0,0,0.05);
+      transition:.3s;
+    }
+    .product-card:hover {
+      transform:translateY(-5px) scale(1.02);
+      box-shadow:0 12px 25px rgba(0,0,0,0.1);
+    }
+    .product-card img {
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:12px;
+      margin-bottom:12px;
+      transition:.4s;
+    }
+    .product-card:hover img {transform:scale(1.07);}
+    .product-card h4 {font-size:16px;margin:8px 0;font-weight:600;}
+    .price {font-weight:700;color:#333;margin-bottom:12px;}
+    .add-btn {
+      padding:8px 14px;
+      border-radius:10px;
+      border:none;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      color:#fff;
+      font-weight:600;
+      cursor:pointer;
+      transition:.3s;
+    }
+    .add-btn:hover {
+      transform:translateY(-2px);
+      box-shadow:0 6px 18px rgba(202,169,122,0.35);
+    }
+
+    /* Responsive Grid */
+    @media(max-width:1200px){
+      .products-grid{grid-template-columns:repeat(4,1fr);}
+    }
+    @media(max-width:768px){
+      .products-grid{grid-template-columns:repeat(2,1fr);}
+      
+      /* Make filters scrollable row */
+      .filter-section {
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        justify-content:flex-start;
+        gap:12px;
+        padding:12px;
+        scrollbar-width:none; /* Firefox */
+      }
+      .filter-section::-webkit-scrollbar {display:none;} /* Chrome */
+      
+      .filter-group {
+        flex-direction:column;
+        align-items:flex-start;
+        background:#f9f9f9;
+        padding:8px 10px;
+        border-radius:10px;
+        flex-shrink:0;
+      }
+      .filter-group label {font-size:12px;}
+      .filter-group select {font-size:13px;}
+    }
+
+    /* ---------------- Reviews ---------------- */
+.reviews {
+  padding: 80px 20px;
+  background: linear-gradient(180deg, #fff, #f7f7f7);
+  text-align: center;
+}
+
+.reviews .section-title {
+  font-size: 32px;
+  font-family: var(--font-heading, "Poppins", sans-serif);
+  margin-bottom: 50px;
+  position: relative;
+  display: inline-block;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.review-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  text-align: left;
+  transition: all 0.5s ease;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards, floatWave 6s ease-in-out infinite;
+}
+
+.review-card:hover {
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12),
+              0 0 20px rgba(255,0,150,0.2);
+}
+
+.review-card p {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.review-card p::before {
+  content: "“";
+  font-size: 40px;
+  color: var(--primary, #ff4081);
+  position: absolute;
+  left: -10px;
+  top: -20px;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewer img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary, #ff4081);
+}
+
+.reviewer h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.reviewer span {
+  font-size: 13px;
+  color: #888;
+}
+
+/* Floating Wave Animation – vertical + horizontal movement */
+@keyframes floatWave {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(10px, -8px); }
+  50%  { transform: translate(-10px, -12px); }
+  75%  { transform: translate(10px, -8px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Fade-in scroll animation */
+.fade-in {
+  animation: fadeUp 1s ease forwards;
+}
+.delay1 { animation-delay: 0.3s; }
+.delay2 { animation-delay: 0.6s; }
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered float variations */
+.float1 { animation-name: fadeUp, floatWave; animation-duration: 1s, 6s; animation-delay: 0s, 0s; animation-iteration-count: 1, infinite; }
+.float2 { animation-name: fadeUp, floatWave; animation-duration: 1s, 7s; animation-delay: 0.3s, 0s; animation-iteration-count: 1, infinite; }
+.float3 { animation-name: fadeUp, floatWave; animation-duration: 1s, 8s; animation-delay: 0.6s, 0s; animation-iteration-count: 1, infinite; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .review-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .review-grid { grid-template-columns: 1fr; }
+}
+
 
 footer{margin-top:28px;padding:24px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+
+/* ---------- Footer Styles ---------- */
+.footer {
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,0.95));
+  padding: 60px 20px 30px 20px;
+  color: #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  animation: fadeUp 1s ease forwards;
+}
+
+.footer h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-family: 'Playfair Display', serif;
+}
+
+.footer p, .footer ul li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.footer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer ul li {
+  margin-bottom: 10px;
+}
+
+.footer ul li a {
+  color: #555;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.footer ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.footer ul li a:hover::after {
+  width: 100%;
+}
+
+.footer ul li a:hover {
+  color: var(--primary);
+}
+
+.footer-brand .logo {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 12px;
+  border-radius: 14px;
+  display: inline-block;
+  animation: floatWave 5s ease-in-out infinite;
+  color: white;
+  text-align: center;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-socials a:hover {
+  transform: translateY(-6px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(202,169,122,0.35);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--muted);
+  animation: fadeUp 1s ease forwards;
+}
+
+/* Floating Wave Animation */
+@keyframes floatWave {
+  0%,100% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-6px) translateX(4px); }
+  50% { transform: translateY(-10px) translateX(-6px); }
+  75% { transform: translateY(-6px) translateX(4px); }
+}
+
+/* Fade Up Animation */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+
+
 
 @media (max-width:980px){.hero{grid-template-columns:1fr;}.products{grid-template-columns:repeat(2,1fr)}.headline{font-size:42px}}
 @media (max-width:640px){.products{grid-template-columns:1fr}.logo{width:44px;height:44px}.headline{font-size:32px}}
@@ -293,10 +951,18 @@ footer{margin-top:28px;padding:24px;border-radius:14px;background:linear-gradien
     
 
     <div class="actions">
-      <button class="icon-btn">♡</button>
-      <button class="icon-btn">🛒</button>
-      <button class="icon-btn">👤</button>
-    </div>
+      <a href="fav.html">
+  <button class="icon-btn">♡</button>
+</a>
+
+<a href="cart.html">
+  <button class="icon-btn">🛒</button>
+</a>
+
+<a href="profile.html">
+  <button class="icon-btn">👤</button>
+</a>
+</div>
   </header>
    <!-- ================= SEARCH BAR BELOW HEADER ================= -->
 <section class="search-section">
@@ -323,98 +989,317 @@ footer{margin-top:28px;padding:24px;border-radius:14px;background:linear-gradien
     </div>
     <div class="hero-right">
        <div class="bottle float1" style="left:20%; top:40px; width:510px; height:510px;">
-          <img src="images/perfume-bottle-isolated-on-transparent-background.png" alt="Amber Dusk" style="width:90%; height:600px; object-fit:contain;">
+          <img src="images/perfume2.png" alt="Amber Dusk" style="width:90%; height:600px; object-fit:contain;">
         </div>
         <div class="bottle float2" style="left:-20%; top:40px; width:510px; height:510px;">
-          <img src="images/pngtree-luxury-perfume-bottle-png-image_9071166.png" alt="Rose Veil" style="width:90%; height:600px; object-fit:contain;">
+          <img src="images/perfume1.png" alt="Rose Veil" style="width:90%; height:600px; object-fit:contain;">
         </div>
         <div class="bottle float3" style="left:0%; top:40px; width:510px; height:150px;">
-          <img src="images/pngtree-perfume-bottle-glass-bottle-for-perfume-and-perfumery-vector-illustration-png-image_13323303.png" alt="Azure Bloom" style="width:90%; height:600px; object-fit:contain;">
+          <img src="images/perfume4.png" alt="Azure Bloom" style="width:90%; height:600px; object-fit:contain;">
         </div>
   </section>
+  
 
-  <section class="categories">
-    <div class="category" style="background-image:url('https://images.unsplash.com/photo-1600185365343-baa53e81e0e5?auto=format&fit=crop&w=800&q=80');">
-      <div class="title">For Him</div>
-    </div>
-    <div class="category" style="background-image:url('https://images.unsplash.com/photo-1616587891236-3a2b4f6b2a4c?auto=format&fit=crop&w=800&q=80');">
-      <div class="title">For Her</div>
-    </div>
-    <div class="category" style="background-image:url('https://images.unsplash.com/photo-1603791440384-56cd371ee9a7?auto=format&fit=crop&w=800&q=80');">
-      <div class="title">Best Sellers</div>
-    </div>
-    <div class="category" style="background-image:url('https://images.unsplash.com/photo-1603112592966-bf7333ec9c5a?auto=format&fit=crop&w=800&q=80');">
-      <div class="title">New Arrivals</div>
-    </div>
-  </section>
+<!-- ================= category ================= -->
+<section class="categories">
+  <h2 class="section-title">Shop by Category</h2>
+  <div class="category-grid">
+    
+    <a href="forhim.html" class="category-card">
+  <img src="images/perfume1.png" alt="For Him">
+  <div class="overlay"><h3>For Him</h3></div>
+</a>
 
-  <section class="top-collection">
-    <div class="collection-header">
-      <h2>Top Collection</h2>
-      <a href="#products" class="more-btn">View All</a>
+<a href="forher.html" class="category-card">
+  <img src="images/perfume3.png" alt="For Her">
+  <div class="overlay"><h3>For Her</h3></div>
+</a>
+
+<a href="gifts.html" class="category-card">
+  <img src="images/perfume2.png" alt="Gifts">
+  <div class="overlay"><h3>Gifts</h3></div>
+</a>
+
+<a href="signature.html" class="category-card">
+  <img src="images/perfume4.png" alt="Signature">
+  <div class="overlay"><h3>Signature</h3></div>
+</a>
+
+  </div>
+</section>
+
+
+<!-- ================= top-collection ================= -->
+<!-- Top Collection -->
+<section class="top-collection">
+  <div class="collection-header">
+    <h2>Top Collection</h2>
+    <a href="signature.html" class="more-btn">More View →</a>
+  </div>
+
+  <div class="scroll-container" id="topScroll">
+    <div class="scroll-track" id="topCollectionGrid">
+      <!-- Products will be dynamically inserted here -->
     </div>
-    <div class="scroll-container">
-      <div class="scroll-track">
-        <div class="product-card"><img src="images/bottle1.png"><div class="card-title">Amber Dusk</div></div>
-        <div class="product-card"><img src="images/bottle2.png"><div class="card-title">Rose Veil</div></div>
-        <div class="product-card"><img src="images/bottle3.png"><div class="card-title">Azure Bloom</div></div>
-        <div class="product-card"><img src="images/bottle4.png"><div class="card-title">Golden Dawn</div></div>
-        <div class="product-card"><img src="images/bottle5.png"><div class="card-title">Midnight Orchid</div></div>
+  </div>
+</section>
+
+<!-- Filter Section -->
+  <div class="filter-section">
+    <div class="filter-group">
+      <label for="gender">Gender:</label>
+      <select id="gender">
+        <option>All</option>
+        <option>For Him</option>
+        <option>For Her</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="category">Category:</label>
+      <select id="category">
+        <option>All</option>
+        <option>Gift</option>
+        <option>Signature</option>
+        <option>Combo</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="sort">Sort By:</label>
+      <select id="sort">
+        <option>Popularity</option>
+        <option>Newest</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="columns">Columns:</label>
+      <select id="columns">
+        <option>6</option>
+        <option>4</option>
+        <option>2</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+   
+  
+<section class="products-grid" id="productsGrid">
+  <!-- Products will be dynamically inserted here -->
+</section>
+
+
+
+  <footer class="footer">
+  <div class="footer-container">
+    <!-- Brand & Description -->
+    <div class="footer-brand">
+      <div class="logo">A</div>
+      <p>Premium handcrafted fragrances inspired by nature and elegance. Experience luxury in every scent.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
+
+    <!-- Categories -->
+    <div class="footer-categories">
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="#him">For Him</a></li>
+        <li><a href="#her">For Her</a></li>
+        <li><a href="#gifts">Gifts</a></li>
+        <li><a href="#signature">Signature</a></li>
+        <li><a href="#combo">Combo</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact & Socials -->
+    <div class="footer-contact">
+      <h4>Contact Us</h4>
+      <p>Email: support@auroraperfumes.com</p>
+      <p>Phone: +91 98765 43210</p>
+      <div class="footer-socials">
+        <a href="#">🐦</a>
+        <a href="#">📘</a>
+        <a href="#">📸</a>
+        <a href="#">🎥</a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="products" id="products">
-    <div class="card">
-      <div class="thumb"><img src="images/bottle1.png"></div>
-      <div class="badge">New</div>
-      <div class="prod-title">Amber Dusk</div>
-      <div class="prod-desc">Warm amber with hints of vanilla and cedarwood.</div>
-      <div class="price-row"><div class="price">₹2,499</div><button class="add">Add</button></div>
-    </div>
-    <div class="card">
-      <div class="thumb"><img src="images/bottle2.png"></div>
-      <div class="badge">Popular</div>
-      <div class="prod-title">Rose Veil</div>
-      <div class="prod-desc">Fresh rose and peony for a soft floral embrace.</div>
-      <div class="price-row"><div class="price">₹2,199</div><button class="add">Add</button></div>
-    </div>
-    <div class="card">
-      <div class="thumb"><img src="images/bottle3.png"></div>
-      <div class="badge">Top</div>
-      <div class="prod-title">Azure Bloom</div>
-      <div class="prod-desc">Ocean breeze and jasmine for a refreshing day scent.</div>
-      <div class="price-row"><div class="price">₹2,299</div><button class="add">Add</button></div>
-    </div>
-  </section>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Aurora Perfumes. All rights reserved.</p>
+    <p>Designed with ❤️ by YourBrand</p>
+  </div>
+</footer>
 
-  <footer>
-    <div>&copy; 2025 Aurora Perfumes. All rights reserved.</div>
-    <div>Designed with ❤️ by YourBrand</div>
-  </footer>
-</div>
 
 <script>
+
 const hamburger=document.getElementById('hamburger');
 const nav=document.querySelector('header nav');
 hamburger.addEventListener('click',()=>nav.classList.toggle('show'));
 
-const categories=document.querySelectorAll('.category');
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible')}})
-},{threshold:0.2});
-categories.forEach(cat=>observer.observe(cat));
 
-const sparklesContainer=document.querySelector('.sparkles');
-for(let i=0;i<20;i++){
-  const s=document.createElement('div');s.classList.add('sparkle');
-  s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
-  s.style.animationDuration=(1+Math.random()*2)+'s';
-  s.style.width=(2+Math.random()*4)+'px';
-  s.style.height=s.style.width;
-  sparklesContainer.appendChild(s);
+// ================= TOP COLLECTION DATA =================
+const topCollection = [
+  {
+    id: "mystic-oud",
+    name: "Mystic Oud",
+    price: "$65",
+    image: "images/perfume2.png",
+    desc: "A captivating fragrance with rich oud and spicy notes."
+  },
+  {
+    id: "amber-dusk",
+    name: "Amber Dusk",
+    price: "$59",
+    image: "images/sample1.png",
+    desc: "Warm amber scent with a dusk-inspired mood."
+  },
+  {
+    id: "rose-veil",
+    name: "Rose Veil",
+    price: "$72",
+    image: "images/sample2.png",
+    desc: "Romantic rose blended with veil of freshness."
+  },
+  {
+    id: "golden-hour",
+    name: "Golden Hour",
+    price: "$80",
+    image: "images/sample3.png",
+    desc: "Golden, radiant fragrance for bright personalities."
+  }
+];
+
+// Target Top Collection grid
+const topCollectionGrid = document.getElementById("topCollectionGrid");
+
+// Dynamically create Top Collection cards
+topCollection.forEach(product => {
+  const card = document.createElement("div");
+  card.classList.add("product-card");
+
+  // Click on product opens product view
+  card.addEventListener("click", () => openProduct(product.id));
+
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}">
+    <h4>${product.name}</h4>
+    <p class="price">${product.price}</p>
+    <button class="add-cart">Add to Cart</button>
+  `;
+
+  // Add to Cart functionality
+  const btn = card.querySelector(".add-cart");
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // stop card click
+    addToCart(product);
+  });
+
+  topCollectionGrid.appendChild(card);
+});
+
+// Reuse functions from grid
+function openProduct(productId) {
+  localStorage.setItem("productId", productId);
+  window.location.href = "product.html"; // product view page
 }
+
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html"; // cart page
+}
+
+
+
+
+const products = [
+  {
+    id: "mystic-oud",
+    name: "Mystic Oud",
+    price: "$65",
+    image: "images/perfume2.png",
+    desc: "A captivating fragrance with rich oud and spicy notes."
+  },
+  {
+    id: "amber-dusk",
+    name: "Amber Dusk",
+    price: "$59",
+    image: "images/sample1.png",
+    desc: "Warm amber scent with a dusk-inspired mood."
+  },
+  {
+    id: "rose-veil",
+    name: "Rose Veil",
+    price: "$72",
+    image: "images/sample2.png",
+    desc: "Romantic rose blended with veil of freshness."
+  },
+  {
+    id: "golden-hour",
+    name: "Golden Hour",
+    price: "$80",
+    image: "images/sample3.png",
+    desc: "Golden, radiant fragrance for bright personalities."
+  }
+];
+
+const productsGrid = document.getElementById("productsGrid");
+
+// Dynamically create product cards
+products.forEach(product => {
+  const card = document.createElement("div");
+  card.classList.add("product-card");
+
+  // When user clicks anywhere on the card (except button), open product view
+  card.addEventListener("click", () => openProduct(product.id));
+
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}">
+    <h4>${product.name}</h4>
+    <p class="price">${product.price}</p>
+    <button class="add-cart">Add to Cart</button>
+  `;
+
+  // Add to Cart button functionality
+  const btn = card.querySelector(".add-cart");
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevent opening product page
+    addToCart(product);
+  });
+
+  productsGrid.appendChild(card);
+});
+
+// Open product view (store only id)
+function openProduct(productId) {
+  localStorage.setItem("productId", productId);
+  window.location.href = "product.html"; // your product view page
+}
+
+// Add product to cart
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html"; // your cart page
+}
+
+
 </script>
 </body>
 </html>
-
